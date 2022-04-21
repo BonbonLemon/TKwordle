@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import useGoogleSheets from "use-google-sheets";
+import randomSeed from "random-seed";
 
 import "./PersonAutocomplete.scss";
 
@@ -27,7 +28,9 @@ const PersonAutocomplete = () => {
   if (!loading && !error && people.length === 0) {
     peopleData = data[0].data;
     setPeople(peopleData);
-    setAnswerPerson(peopleData[Math.floor(Math.random() * peopleData.length)]);
+    const seed = new Date().toDateString();
+    const gen = randomSeed.create(seed);
+    setAnswerPerson(peopleData[gen.range(peopleData.length)]);
   }
 
   const updateInput = (e) => {
