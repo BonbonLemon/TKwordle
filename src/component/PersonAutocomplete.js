@@ -56,6 +56,7 @@ const PersonAutocomplete = () => {
                   : ""
               }`}
               onClick={() => selectPerson(person)}
+              onMouseDown={(e) => e.preventDefault()}
               onMouseEnter={() => setFocus(idx)}
               key={idx}
             >

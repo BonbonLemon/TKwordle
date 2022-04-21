@@ -102,8 +102,8 @@ const Guesses = (props) => {
       const [guessFt, guessIn] = guessHeight.slice(0, -1).split("'");
       const [answerFt, answerIn] = answerHeight.slice(0, -1).split("'");
 
-      const guessHeightIn = guessFt * 12 + guessIn;
-      const answerHeightIn = answerFt * 12 + answerIn;
+      const guessHeightIn = parseInt(guessFt) * 12 + parseInt(guessIn);
+      const answerHeightIn = parseInt(answerFt) * 12 + parseInt(answerIn);
 
       heightArrow = guessHeightIn > answerHeightIn ? "\u2193" : "\u2191";
 
