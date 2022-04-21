@@ -100,7 +100,9 @@ const PersonAutocomplete = () => {
     } else if (e.keyCode === 13) {
       // ENTER
       e.preventDefault();
-      selectPerson(autocompletePeople[focus]);
+      if (autocompletePeople.length) {
+        selectPerson(autocompletePeople[focus]);
+      }
     } else {
       setFocus(0);
     }
