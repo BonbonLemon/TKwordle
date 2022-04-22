@@ -1,26 +1,34 @@
 import "./Guesses.scss";
 
+const nameHeader = "Full Name (discord or LoL screen name)";
+const genderHeader = "Gender";
+const residenceHeader = "Where do you live?";
+const pastResidenceHeader = "Please check the areas you previously lived";
+const lolPosHeader = "Preferred League of Legends position (Summoner's Rift)";
+const heightHeader = "How tall are you?";
+const birthdayHeader = "When were you born?";
+
 const Guesses = (props) => {
   const { answerPerson, guesses } = props;
 
   const renderGuess = (guessPerson, idx) => {
     // Name
-    const nameEl = compareName(guessPerson["Name"]);
+    const nameEl = compareName(guessPerson[nameHeader]);
 
     // Gender
-    const genderEl = compareGender(guessPerson["Gender"]);
+    const genderEl = compareGender(guessPerson[genderHeader]);
 
     //  residence
-    const residenceEl = compareResidence(guessPerson["Residence"]);
+    const residenceEl = compareResidence(guessPerson[residenceHeader]);
 
     // LoL Position
-    const lolPosEl = compareLolPos(guessPerson["LoL Position"]);
+    const lolPosEl = compareLolPos(guessPerson[lolPosHeader]);
 
     // Height
-    const heightEl = compareHeight(guessPerson["Height"]);
+    const heightEl = compareHeight(guessPerson[heightHeader]);
 
     // Age
-    const ageEl = compareAge(guessPerson["Birthday"]);
+    const ageEl = compareAge(guessPerson[birthdayHeader]);
 
     return (
       <div className="guess" key={idx}>
@@ -36,7 +44,7 @@ const Guesses = (props) => {
 
   const compareName = (guessName) => {
     const nameAccuracy =
-      guessName === answerPerson["Name"] ? "correct" : "incorrect";
+      guessName === answerPerson[nameHeader] ? "correct" : "incorrect";
     return (
       <div className={`information name ${nameAccuracy}`}>{guessName}</div>
     );
@@ -44,7 +52,7 @@ const Guesses = (props) => {
 
   const compareGender = (guessGender) => {
     const genderAccuracy =
-      guessGender === answerPerson["Gender"] ? "correct" : "incorrect";
+      guessGender === answerPerson[genderHeader] ? "correct" : "incorrect";
     return (
       <div className={`information gender ${genderAccuracy}`}>
         {guessGender}
@@ -54,10 +62,10 @@ const Guesses = (props) => {
 
   const compareResidence = (guessResidence) => {
     let residenceAccuracy;
-    if (guessResidence === answerPerson["Residence"]) {
+    if (guessResidence === answerPerson[residenceHeader]) {
       residenceAccuracy = "correct";
     } else if (
-      answerPerson["Previous Residence"].split(", ").indexOf(guessResidence) !==
+      answerPerson[pastResidenceHeader].split(", ").indexOf(guessResidence) !==
       1
     ) {
       residenceAccuracy = "close";
@@ -72,7 +80,7 @@ const Guesses = (props) => {
   };
 
   const compareLolPos = (guessLoLPos) => {
-    const answerLoLPos = answerPerson["LoL Position"];
+    const answerLoLPos = answerPerson[lolPosHeader];
     let lolPosAccuracy;
     if (guessLoLPos === answerLoLPos) {
       lolPosAccuracy = "correct";
@@ -94,7 +102,7 @@ const Guesses = (props) => {
 
   const compareHeight = (guessHeight) => {
     let heightAccuracy, heightArrow;
-    const answerHeight = answerPerson["Height"];
+    const answerHeight = answerPerson[heightHeader];
 
     if (guessHeight === answerHeight) {
       heightAccuracy = "correct";
@@ -123,7 +131,7 @@ const Guesses = (props) => {
 
   const compareAge = (guessBirthday) => {
     const guessAge = getAge(guessBirthday);
-    const answerAge = getAge(answerPerson["Birthday"]);
+    const answerAge = getAge(answerPerson[birthdayHeader]);
     let ageAccuracy, ageArrow;
 
     if (guessAge === answerAge) {
