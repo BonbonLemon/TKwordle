@@ -11,6 +11,8 @@ const SPREADSHEET_ID = "1twAQMXJnsdAJ8IGeRJnYRBvYUWZCrSGUsXmymm1fZR8";
 const API_KEY = "AIzaSyAG4n2KFUfOLJizmk9NhNOtXo2ZcQO8z4g";
 const SPREADSHEET_NAME = "Form Responses 1";
 
+const nameHeader = "Full Name (discord or LoL screen name)";
+
 const PersonAutocomplete = () => {
   const [input, setInput] = useState("");
   const [people, setPeople] = useState([]);
@@ -39,13 +41,15 @@ const PersonAutocomplete = () => {
 
   const createAutocomplete = () => {
     const autocompletePeople = people.filter((person) => {
-      return person["Name"].toLowerCase().indexOf(input.toLowerCase()) !== -1;
+      return (
+        person[nameHeader].toLowerCase().indexOf(input.toLowerCase()) !== -1
+      );
     });
 
     return (
       <div className="autocomplete-list">
         {autocompletePeople.map((person, idx) => {
-          const indexOfInput = person["Name"]
+          const indexOfInput = person[nameHeader]
             .toLowerCase()
             .indexOf(input.toLowerCase());
           return (
@@ -60,11 +64,11 @@ const PersonAutocomplete = () => {
               onMouseEnter={() => setFocus(idx)}
               key={idx}
             >
-              {person["Name"].substr(0, indexOfInput)}
+              {person[nameHeader].substr(0, indexOfInput)}
               <strong>
-                {person["Name"].substr(indexOfInput, input.length)}
+                {person[nameHeader].substr(indexOfInput, input.length)}
               </strong>
-              {person["Name"].substr(indexOfInput + input.length)}
+              {person[nameHeader].substr(indexOfInput + input.length)}
             </div>
           );
         })}
@@ -85,7 +89,9 @@ const PersonAutocomplete = () => {
 
   const updateFocus = (e) => {
     const autocompletePeople = people.filter((person) => {
-      return person["Name"].toLowerCase().indexOf(input.toLowerCase()) !== -1;
+      return (
+        person[nameHeader].toLowerCase().indexOf(input.toLowerCase()) !== -1
+      );
     });
     if (e.keyCode === 40) {
       // DOWN
@@ -139,7 +145,9 @@ const PersonAutocomplete = () => {
       <Guesses answerPerson={answerPerson} guesses={guesses} />
       <Modal centered show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>{answerPerson ? answerPerson["Name"] : ""}</Modal.Title>
+          <Modal.Title>
+            {answerPerson ? answerPerson[nameHeader] : ""}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>You solved it in {guesses.length} guesses!</Modal.Body>
       </Modal>
