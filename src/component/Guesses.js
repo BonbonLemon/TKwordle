@@ -45,6 +45,7 @@ const Guesses = (props) => {
   const compareName = (guessName) => {
     const nameAccuracy =
       guessName === answerPerson[nameHeader] ? "correct" : "incorrect";
+
     return (
       <div className={`information name ${nameAccuracy}`}>{guessName}</div>
     );
@@ -53,6 +54,7 @@ const Guesses = (props) => {
   const compareGender = (guessGender) => {
     const genderAccuracy =
       guessGender === answerPerson[genderHeader] ? "correct" : "incorrect";
+
     return (
       <div className={`information gender ${genderAccuracy}`}>
         {guessGender}
@@ -72,6 +74,7 @@ const Guesses = (props) => {
     } else {
       residenceAccuracy = "incorrect";
     }
+
     return (
       <div className={`information residence ${residenceAccuracy}`}>
         {guessResidence}
@@ -93,6 +96,7 @@ const Guesses = (props) => {
 
       lolPosAccuracy = hasPosIntersection ? "close" : "incorrect";
     }
+
     return (
       <div className={`information lol-pos ${lolPosAccuracy}`}>
         {guessLoLPos}

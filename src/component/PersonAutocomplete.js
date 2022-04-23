@@ -5,7 +5,7 @@ import randomSeed from "random-seed";
 import "./PersonAutocomplete.scss";
 
 import Guesses from "./Guesses";
-import { Modal } from "react-bootstrap";
+import GameOverModal from "./GameOverModal";
 
 const SPREADSHEET_ID = "1twAQMXJnsdAJ8IGeRJnYRBvYUWZCrSGUsXmymm1fZR8";
 const API_KEY = "AIzaSyAG4n2KFUfOLJizmk9NhNOtXo2ZcQO8z4g";
@@ -121,8 +121,6 @@ const PersonAutocomplete = () => {
     setIsFocused(false);
   };
 
-  const handleCloseModal = () => setShowModal(false);
-
   return (
     <div>
       <div className="autocomplete">
@@ -143,14 +141,12 @@ const PersonAutocomplete = () => {
         {input.length > 0 && isFocused ? createAutocomplete() : ""}
       </div>
       <Guesses answerPerson={answerPerson} guesses={guesses} />
-      <Modal centered show={showModal} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>
-            {answerPerson ? answerPerson[nameHeader] : ""}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>You solved it in {guesses.length} guesses!</Modal.Body>
-      </Modal>
+      <GameOverModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        answerPerson={answerPerson}
+        guesses={guesses}
+      />
     </div>
   );
 };
