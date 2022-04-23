@@ -17,8 +17,6 @@ const GameOverModal = (props) => {
   const handleCloseModal = () => setShowModal(false);
 
   // FIXME: Surely there's a better way to do this, but I'm just gonna copy paste it for now to get it working.
-  let accuracyRecord = "";
-
   const getGenderAccuracy = (guessGender) => {
     return guessGender === answerPerson[genderHeader] ? "🟩" : "⬛";
   };
@@ -103,11 +101,8 @@ const GameOverModal = (props) => {
     return yearsDifference;
   };
 
+  let accuracyRecord = "";
   guesses.forEach((guessPerson, idx) => {
-    if (idx !== 0) {
-      accuracyRecord += "\n";
-    }
-
     // Gender
     const genderAccuracy = getGenderAccuracy(guessPerson[genderHeader]);
 
@@ -125,10 +120,10 @@ const GameOverModal = (props) => {
     // Age
     const ageAccuracy = getAgeAccuracy(guessPerson[birthdayHeader]);
 
-    accuracyRecord += `${genderAccuracy}${residenceAccuracy}${lolPosAccuracy}${heightAccuracy}${ageAccuracy}`;
+    accuracyRecord += `${genderAccuracy}${residenceAccuracy}${lolPosAccuracy}${heightAccuracy}${ageAccuracy}\n`;
   });
 
-  const shareButtonText = `TKwordle\nhttps://bonbonlemon.github.io/TKwordle/\n\n${accuracyRecord}`;
+  const shareButtonText = `TKwordle\nhttps://bonbonlemon.github.io/TKwordle/\n\n${accuracyRecord}\n`;
 
   return (
     <Modal centered show={showModal} onHide={handleCloseModal}>
