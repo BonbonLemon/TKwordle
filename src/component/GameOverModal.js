@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import { Modal } from "react-bootstrap";
@@ -13,6 +13,7 @@ const birthdayHeader = "When were you born?";
 
 const GameOverModal = (props) => {
   const { showModal, setShowModal, answerPerson, guesses } = props;
+  const [isCopied, setIsCopied] = useState(false);
 
   const handleCloseModal = () => setShowModal(false);
 
@@ -136,9 +137,15 @@ const GameOverModal = (props) => {
         <div style={{ marginBottom: 10 }}>
           You solved it in {guesses.length} guesses!
         </div>
-        <CopyToClipboard text={shareButtonText}>
+        <CopyToClipboard
+          text={shareButtonText}
+          onCopy={() => {
+            setIsCopied(true);
+          }}
+        >
           <button>Share</button>
         </CopyToClipboard>
+        <div>{isCopied ? "Copied to clipboard" : ""}</div>
       </Modal.Body>
     </Modal>
   );

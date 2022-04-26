@@ -68,7 +68,7 @@ const Guesses = (props) => {
       residenceAccuracy = "correct";
     } else if (
       answerPerson[pastResidenceHeader].split(", ").indexOf(guessResidence) !==
-      1
+      -1
     ) {
       residenceAccuracy = "close";
     } else {
